@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# create static libriary
+gcc -c ./*.c
+ar r libneuro.a *.o 2>/dev/null
+gcc -o main *.o -L . -lneuro
+rm *.o
+rm *.a
