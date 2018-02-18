@@ -2,8 +2,15 @@
 #ifndef NEURO_H
 #define NEURO_H
 
+static struct bandwidth {
+    int bw_eth0;
+    int bw_eth1;
+    int bw_ppp;
+};
+
 static struct variables {
     int ping_ms;
+    struct bandwidth bw;
 };
 
 static struct channel {
