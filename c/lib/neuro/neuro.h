@@ -2,20 +2,15 @@
 #ifndef NEURO_H
 #define NEURO_H
 
-static struct variables {
-    int ping_ms;
-    int bw_tx;
-    int bw_rx;
-    int type;       // master || slave channel
-    unsigned char mac_addr[6];
-};
+// https://github.com/troglobit/libicmp
 
 typedef struct node {
-        int val;
-        struct variables eth0;
-        struct variables eth1;
-        struct variables ppp;
-        struct node * next;
+    int val;                // temporary var
+    int ping_ms;
+    int bandwidth;
+    unsigned char mac_addr[6];
+
+    struct node* next ;
 } node_t;
 
 void print_list(node_t * head);
