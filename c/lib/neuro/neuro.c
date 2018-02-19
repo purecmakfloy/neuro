@@ -7,7 +7,7 @@ void print_list(node_t * head) {
     node_t * current = head;
 
     while (current != NULL) {
-        printf("%d\n", current->channel.master.ping_ms);
+        printf("%d\n", current->eth1.ping_ms);
         current = current->next;
     }
 }

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # create static libriary
-gcc -c ./src/*.c ./lib/neuro/*.c
+gcc -c ./*.c
 ar r libneuro.a *.o 2>/dev/null
-gcc -o neuro *.o -L . -lneuro
+gcc -o main *.o -L . -lneuro
 rm *.o
 rm *.a

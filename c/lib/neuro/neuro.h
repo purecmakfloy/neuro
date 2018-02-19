@@ -2,25 +2,19 @@
 #ifndef NEURO_H
 #define NEURO_H
 
-static struct bandwidth {
-    int bw_eth0;
-    int bw_eth1;
-    int bw_ppp;
-};
-
 static struct variables {
     int ping_ms;
-    struct bandwidth bw;
-};
-
-static struct channel {
-    struct variables master;
-    struct variables slave;
+    int bw_tx;
+    int bw_rx;
+    int type;       // master || slave channel
+    unsigned char mac_addr[6];
 };
 
 typedef struct node {
         int val;
-        struct channel channel;
+        struct variables eth0;
+        struct variables eth1;
+        struct variables ppp;
         struct node * next;
 } node_t;
 
