@@ -48,7 +48,7 @@ typedef struct devs_struct {
     #define DEXTREE_N_MAX 10
 #endif
 typedef struct dextree_struct {
-    int w[DEXTREE_N_MAX][DEXTREE_N_MAX]; // Матрица путей (хранит вес ребер)
+    int w[DEXTREE_N_MAX][DEXTREE_N_MAX]; // Массив весов ребер
     int D[DEXTREE_N_MAX][DEXTREE_N_MAX]; // Массив минимальных путей
     bool visited[DEXTREE_N_MAX];         // Массив посещенных вершин
 } dextree_type;
