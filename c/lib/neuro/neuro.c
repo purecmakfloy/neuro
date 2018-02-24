@@ -1,73 +1,35 @@
 // neuro.c
 #include "neuro.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-void print_list(node_t * head) {
-    node_t * current = head;
-
-    while (current != NULL) {
-        printf("%d\n", current->ping_ms);
-        current = current->next;
+// init device
+void dev_init( devs_type* dev ) {
+    if ( dev == NULL ) {
+        printf( "No memory\n" );
+        exit( -1 );
     }
+    memset( dev, 0, sizeof( devs_type ) );
+}
+// apply changes devices
+void dev_change_apply( devs_type* dev ){
+    dev->swap->is_use = ! dev->is_use;
+    sprintf( dev->swap->in.iface, "%s", dev->in.iface );
+}
+// swaping devices
+void dev_swap( devs_type* dev0, devs_type* dev1 ){
+    dev0->swap = dev1;
+    dev1->swap = dev0;
+    dev_change_apply( dev0 );
 }
 
-void push_behind(node_t * head, int val) {
-    node_t * current = head;
-    while (current->next != NULL) {
-        current = current->next;
+void dextree_init( dextree_type* dextree ){
+    if ( dextree == NULL ) {
+        printf( "No memory\n" );
+        exit( -1 );
     }
-
-    /* now we can add a new variable */
-    current->next = malloc(sizeof(node_t));
-    current->next->val = val;
-    current->next->next = NULL;
-}
-
-void push_before(node_t ** head, int val) {
-    node_t * new_node;
-    new_node = malloc(sizeof(node_t));
-
-    new_node->val = val;
-    new_node->next = *head;
-    *head = new_node;
-}
-
-int pop(node_t ** head) {
-    int retval = -1;
-    node_t * next_node = NULL;
-
-    if (*head == NULL) {
-        return -1;
+    for ( int i = 0; i < DEXTREE_N_MAX; i++ ){
+        for ( int j = 0; j < DEXTREE_N_MAX; j++ ){
+            dextree->w[i][j] = 1000;
+            dextree->D[i][j] = 0;
+        }
+        dextree->visited[i] = false;
     }
-
-    next_node = (*head)->next;
-    retval = (*head)->val;
-    free(*head);
-    *head = next_node;
-
-    return retval;
-}
-
-int remove_last(node_t * head) {
-    int retval = 0;
-    /* if there is only one item in the list, remove it */
-    if (head->next == NULL) {
-        retval = head->val;
-        free(head);
-        return retval;
-    }
-
-    /* get to the second to last node in the list */
-    node_t * current = head;
-    while (current->next->next != NULL) {
-        current = current->next;
-    }
-
-    /* now current points to the second to last item of the list, so let's remove current->next */
-    retval = current->next->val;
-    free(current->next);
-    current->next = NULL;
-    return retval;
-
 }
